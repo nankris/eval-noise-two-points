@@ -1,0 +1,9 @@
+Generating train split:   0%|          | 0/120000 [00:00<?, ? examples/s]Generating train split:  50%|█████     | 60000/120000 [00:00<00:00, 554494.06 examples/s]Generating train split: 100%|██████████| 120000/120000 [00:00<00:00, 820884.79 examples/s]
+Generating test split:   0%|          | 0/7600 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 7600/7600 [00:00<00:00, 1032042.94 examples/s]
+dev label counts Counter({3: 13, 1: 10, 0: 9, 2: 8})
+v1 chat letters: acc=0.225 preds={0: 40} (14s)
+chat letters + prefill "Answer: ": acc=0.325 preds={0: 13, 3: 27} (14s)
+chat names: acc=0.250 preds={1: 40} (12s)
+plain-text letters: acc=0.750 preds={0: 8, 1: 7, 2: 7, 3: 18} (12s)
+plain-text names: acc=0.300 preds={2: 13, 3: 27} (10s)
+chat letters, article after options, prefill "The answer is": acc=0.825 preds={0: 8, 1: 10, 2: 8, 3: 14} (12s)

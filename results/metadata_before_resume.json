@@ -1,0 +1,17 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "model_commit": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "torch": "2.14.1+cpu",
+  "threads": 2,
+  "dtype": "torch.float32",
+  "device": "cpu",
+  "pool_seed": 126,
+  "pool_size": 1000,
+  "batch_size": 4,
+  "article_token_cap": 256,
+  "answer_rule": "argmax logits restricted to A/B/C/D",
+  "thinking": false,
+  "started_utc": "2026-10-16T09:55:02Z",
+  "dataset_fingerprint": "0ebcc57b6aea2fc9",
+  "pool_sha256": "5d084b0906d0f2046b51d5adc86d4a5cb1fcdf3a75f6030c495ac3c66d2a50f7"
+}

@@ -1,0 +1,20 @@
+{
+  "arm": "v3b",
+  "model": "Qwen/Qwen3-1.7B",
+  "model_path": "/home/box/.cache/huggingface/hub/models--Qwen--Qwen3-1.7B/snapshots/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "n_pool": 1000,
+  "pool_sha256": "480e7db5f527e0fdfb6b85fd5baf754f6f363f9479281d3812561bf503eff65e",
+  "prompt_example": "<|im_start|>user\nArticle: Mexico Police Present Before Mob Killing (AP) AP - An amateur video released Tuesday shows that Mexico City police were present late last month before a street mob beat three plainclothes federal agents and set two of them on fire, killing both men.\n\nWhich topic is this article about?\nA. World\nB. Sports\nC. Business\nD. Science/Technology\n\nAnswer with just the letter.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nThe answer is",
+  "answer_tokens": [
+    362,
+    425,
+    356,
+    422
+  ],
+  "threads": 2,
+  "dtype": "bfloat16",
+  "torch": "2.14.1+cpu",
+  "started_ist": "2026-10-21 21:45:05",
+  "finished_ist": "2026-10-21 22:50:43",
+  "seconds_this_invocation": 3937.5321021080017
+}

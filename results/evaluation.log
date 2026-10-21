@@ -1,0 +1,102 @@
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:  10%|▉         | 31/311 [00:00<00:00, 306.24it/s]Loading weights:  44%|████▍     | 138/311 [00:00<00:00, 746.76it/s]Loading weights:  76%|███████▌  | 235/311 [00:00<00:00, 829.42it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 644.65it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Generating train split:   0%|          | 0/120000 [00:00<?, ? examples/s]Generating train split:   1%|          | 1000/120000 [00:00<01:11, 1658.25 examples/s]Generating train split: 100%|██████████| 120000/120000 [00:00<00:00, 212580.38 examples/s]Generating train split: 100%|██████████| 120000/120000 [00:00<00:00, 161207.11 examples/s]
+Generating test split:   0%|          | 0/7600 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 7600/7600 [00:00<00:00, 1443495.47 examples/s]
+4/1000; elapsed 16.1s
+44/1000; elapsed 76.0s
+84/1000; elapsed 120.3s
+124/1000; elapsed 182.1s
+Traceback (most recent call last):
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 537, in cached_files
+    hf_hub_download(
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 266, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1047, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1194, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1944, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: Cannot find the requested files in the disk cache and outgoing traffic has been disabled. To enable hf.co look-ups and downloads online, set 'local_files_only' to False.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/models/auto/tokenization_auto.py", line 807, in from_pretrained
+    config = AutoConfig.from_pretrained(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/models/auto/configuration_auto.py", line 397, in from_pretrained
+    config_dict, unused_kwargs = PreTrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 792, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 844, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 370, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 620, in cached_files
+    raise OSError(
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 537, in cached_files
+    hf_hub_download(
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 89, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/utils/_http.py", line 266, in _inner
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1047, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1194, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1944, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: Cannot find the requested files in the disk cache and outgoing traffic has been disabled. To enable hf.co look-ups and downloads online, set 'local_files_only' to False.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/workspace/work/tig/126-eval-noise-two-points/scripts/evaluate.py", line 20, in <module>
+    tok = AutoTokenizer.from_pretrained(model_id, local_files_only=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/models/auto/tokenization_auto.py", line 811, in from_pretrained
+    config = PreTrainedConfig.from_pretrained(pretrained_model_name_or_path, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 742, in from_pretrained
+    config_dict, kwargs = cls.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 792, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 844, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 370, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/tools/mlenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 620, in cached_files
+    raise OSError(
+OSError: We couldn't connect to 'https://huggingface.co' to load the files, and couldn't find them in the cached files.
+Check your internet connection or see how to run the library in offline mode at 'https://huggingface.co/docs/transformers/installation#offline-mode'.
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 7 files:  14%|█▍        | 1/7 [00:00<00:03,  1.70it/s]Fetching 7 files:  86%|████████▌ | 6/7 [00:01<00:00,  5.43it/s]Fetching 7 files: 100%|██████████| 7/7 [00:09<00:00,  1.74s/it]Fetching 7 files: 100%|██████████| 7/7 [00:09<00:00,  1.31s/it]
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 1/311 [00:03<17:39,  3.42s/it]Loading weights:   9%|▉         | 28/311 [00:03<00:25, 11.03it/s]Loading weights:  14%|█▎        | 42/311 [00:03<00:16, 15.98it/s]Loading weights:  17%|█▋        | 52/311 [00:03<00:12, 21.07it/s]Loading weights:  20%|█▉        | 61/311 [00:04<00:09, 25.59it/s]Loading weights:  23%|██▎       | 70/311 [00:04<00:07, 31.39it/s]Loading weights:  26%|██▌       | 81/311 [00:04<00:05, 40.03it/s]Loading weights:  30%|██▉       | 92/311 [00:04<00:04, 48.67it/s]Loading weights:  32%|███▏      | 101/311 [00:04<00:04, 50.38it/s]Loading weights:  36%|███▌      | 112/311 [00:04<00:03, 60.50it/s]Loading weights:  39%|███▉      | 121/311 [00:04<00:02, 64.05it/s]Loading weights:  42%|████▏     | 130/311 [00:05<00:03, 58.31it/s]Loading weights:  45%|████▌     | 141/311 [00:05<00:02, 68.07it/s]Loading weights:  48%|████▊     | 150/311 [00:05<00:02, 57.56it/s]Loading weights:  51%|█████     | 159/311 [00:05<00:02, 63.03it/s]Loading weights:  54%|█████▎    | 167/311 [00:05<00:02, 58.36it/s]Loading weights:  56%|█████▌    | 174/311 [00:05<00:02, 49.33it/s]Loading weights:  59%|█████▉    | 185/311 [00:05<00:02, 61.35it/s]Loading weights:  62%|██████▏   | 193/311 [00:06<00:02, 56.38it/s]Loading weights:  65%|██████▍   | 202/311 [00:06<00:02, 51.31it/s]Loading weights:  68%|██████▊   | 210/311 [00:06<00:01, 56.39it/s]Loading weights:  70%|██████▉   | 217/311 [00:06<00:01, 52.35it/s]Loading weights:  72%|███████▏  | 224/311 [00:06<00:01, 55.49it/s]Loading weights:  75%|███████▍  | 233/311 [00:06<00:01, 60.34it/s]Loading weights:  77%|███████▋  | 241/311 [00:06<00:01, 64.60it/s]Loading weights:  80%|███████▉  | 248/311 [00:07<00:01, 60.88it/s]Loading weights:  83%|████████▎ | 258/311 [00:07<00:00, 67.02it/s]Loading weights:  85%|████████▌ | 265/311 [00:07<00:00, 58.09it/s]Loading weights:  88%|████████▊ | 274/311 [00:07<00:00, 64.63it/s]Loading weights:  90%|█████████ | 281/311 [00:07<00:00, 61.69it/s]Loading weights:  93%|█████████▎| 288/311 [00:07<00:00, 59.82it/s]Loading weights:  95%|█████████▍| 295/311 [00:07<00:00, 62.27it/s]Loading weights:  97%|█████████▋| 302/311 [00:07<00:00, 58.89it/s]Loading weights: 100%|██████████| 311/311 [00:08<00:00, 38.67it/s]
+152/1000; elapsed 40.9s
+192/1000; elapsed 141.8s
+232/1000; elapsed 245.8s
+272/1000; elapsed 348.2s
+312/1000; elapsed 444.5s

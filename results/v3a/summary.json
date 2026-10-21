@@ -1,0 +1,73 @@
+{
+  "arm": "v3a",
+  "n_items": 4000,
+  "pool_accuracy_percent": 84.3,
+  "pool_accuracy_95ci_percent": [
+    83.15,
+    85.425
+  ],
+  "sanity_gate_passed": true,
+  "prediction_share": {
+    "World": 0.202,
+    "Sports": 0.265,
+    "Business": 0.24825,
+    "Sci/Tech": 0.28475
+  },
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      729,
+      42,
+      114,
+      105
+    ],
+    [
+      4,
+      1007,
+      15,
+      4
+    ],
+    [
+      38,
+      5,
+      771,
+      165
+    ],
+    [
+      37,
+      6,
+      93,
+      865
+    ]
+  ],
+  "per_class_recall": {
+    "World": 0.7363636363636363,
+    "Sports": 0.9776699029126213,
+    "Business": 0.7875383043922369,
+    "Sci/Tech": 0.8641358641358642
+  },
+  "runs_min": 76.5,
+  "runs_max": 88.5,
+  "runs_range_pp": 12.0,
+  "runs_mean": 84.3,
+  "runs_sd_pp": 2.8626450779140025,
+  "binomial_sd_pp_200": 2.5724599122240956,
+  "n_sets": 20,
+  "n_pairs": 190,
+  "pairs_at_least_2pp": 120,
+  "empirical_pair_rate": 0.631578947368421,
+  "decision_statistic": "P(two independent 200-item sets differ by >=4 correct), Binomial(200,p)",
+  "pair_probability_point": 0.6300676825266767,
+  "pair_probability_95ci": [
+    0.6194261599692411,
+    0.6395669198158129
+  ],
+  "verdict": "PROVEN",
+  "textbook_independent_pair_probability": 0.6300676825266767,
+  "first_run_accuracy": 82.0,
+  "first_run_95ci": [
+    76.5,
+    87.0
+  ],
+  "first_run_ci_width_pp": 10.5,
+  "n_needed_unpaired_2pp_80pct_power": 5195
+}

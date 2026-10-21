@@ -1,0 +1,20 @@
+{
+  "arm": "v3a",
+  "model": "Qwen/Qwen3-0.6B@c1899de289a04d12100db370d81485cdf75e47ca",
+  "model_path": "/workspace/drive-tig-2026-10-21/repos/126-eval-noise-two-points/126-eval-noise-two-points/model",
+  "n_pool": 4000,
+  "pool_sha256": "6d12cb15794d4ea10db6f1cc366f78a1e924916cb65f2a985a1028880e9bbe2f",
+  "prompt_example": "<|im_start|>user\nArticle: PepsiCo Reaffirms Its 2005 Outlook PepsiCo Inc., the world #39;s second-largest carbonated soft-drink maker, reaffirmed its outlook for 2005 Thursday after rival Coca-Cola Co.\n\nWhich topic is this article about?\nA. World\nB. Sports\nC. Business\nD. Science/Technology\n\nAnswer with just the letter.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nThe answer is",
+  "answer_tokens": [
+    362,
+    425,
+    356,
+    422
+  ],
+  "threads": 2,
+  "dtype": "float32",
+  "torch": "2.14.1+cpu",
+  "started_ist": "2026-10-21 21:45:06",
+  "finished_ist": "2026-10-21 23:46:01",
+  "seconds_this_invocation": 7254.720026254654
+}

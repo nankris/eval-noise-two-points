@@ -1,0 +1,73 @@
+{
+  "arm": "v2",
+  "n_items": 1000,
+  "pool_accuracy_percent": 84.5,
+  "pool_accuracy_95ci_percent": [
+    82.19999999999999,
+    86.7
+  ],
+  "sanity_gate_passed": true,
+  "prediction_share": {
+    "World": 0.217,
+    "Sports": 0.247,
+    "Business": 0.271,
+    "Sci/Tech": 0.265
+  },
+  "confusion_matrix_rows_true_cols_pred": [
+    [
+      202,
+      11,
+      32,
+      25
+    ],
+    [
+      0,
+      235,
+      4,
+      1
+    ],
+    [
+      6,
+      1,
+      210,
+      41
+    ],
+    [
+      9,
+      0,
+      25,
+      198
+    ]
+  ],
+  "per_class_recall": {
+    "World": 0.7481481481481481,
+    "Sports": 0.9791666666666666,
+    "Business": 0.813953488372093,
+    "Sci/Tech": 0.853448275862069
+  },
+  "runs_min": 80.5,
+  "runs_max": 89.5,
+  "runs_range_pp": 9.0,
+  "runs_mean": 85.25,
+  "runs_sd_pp": 2.3480114767046696,
+  "binomial_sd_pp_200": 2.5590525590538387,
+  "n_sets": 20,
+  "n_pairs": 190,
+  "pairs_at_least_2pp": 119,
+  "empirical_pair_rate": 0.6263157894736842,
+  "decision_statistic": "P(two 200-item subsets of the 1000 pool differ by >=4 correct), hypergeometric",
+  "pair_probability_point": 0.5886970894906005,
+  "pair_probability_95ci": [
+    0.5643638678416485,
+    0.6089786451384895
+  ],
+  "verdict": "PROVEN",
+  "textbook_independent_pair_probability": 0.6282652319623587,
+  "first_run_accuracy": 80.5,
+  "first_run_95ci": [
+    75.0,
+    85.5
+  ],
+  "first_run_ci_width_pp": 10.5,
+  "n_needed_unpaired_2pp_80pct_power": 5141
+}

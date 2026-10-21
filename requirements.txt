@@ -1,0 +1,7 @@
+torch==2.14.1+cpu
+transformers==5.19.0
+datasets==5.1.0
+huggingface-hub==1.33.0
+numpy==2.5.4
+scipy==1.18.1
+matplotlib==3.11.2

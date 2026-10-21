@@ -1,0 +1,233 @@
+{
+  "v2": {
+    "arm": "v2",
+    "n_items": 1000,
+    "pool_accuracy_percent": 84.5,
+    "pool_accuracy_95ci_percent": [
+      82.19999999999999,
+      86.7
+    ],
+    "sanity_gate_passed": true,
+    "prediction_share": {
+      "World": 0.217,
+      "Sports": 0.247,
+      "Business": 0.271,
+      "Sci/Tech": 0.265
+    },
+    "confusion_matrix_rows_true_cols_pred": [
+      [
+        202,
+        11,
+        32,
+        25
+      ],
+      [
+        0,
+        235,
+        4,
+        1
+      ],
+      [
+        6,
+        1,
+        210,
+        41
+      ],
+      [
+        9,
+        0,
+        25,
+        198
+      ]
+    ],
+    "per_class_recall": {
+      "World": 0.7481481481481481,
+      "Sports": 0.9791666666666666,
+      "Business": 0.813953488372093,
+      "Sci/Tech": 0.853448275862069
+    },
+    "runs_min": 80.5,
+    "runs_max": 89.5,
+    "runs_range_pp": 9.0,
+    "runs_mean": 85.25,
+    "runs_sd_pp": 2.3480114767046696,
+    "binomial_sd_pp_200": 2.5590525590538387,
+    "n_sets": 20,
+    "n_pairs": 190,
+    "pairs_at_least_2pp": 119,
+    "empirical_pair_rate": 0.6263157894736842,
+    "decision_statistic": "P(two 200-item subsets of the 1000 pool differ by >=4 correct), hypergeometric",
+    "pair_probability_point": 0.5886970894906005,
+    "pair_probability_95ci": [
+      0.5643638678416485,
+      0.6089786451384895
+    ],
+    "verdict": "PROVEN",
+    "textbook_independent_pair_probability": 0.6282652319623587,
+    "first_run_accuracy": 80.5,
+    "first_run_95ci": [
+      75.0,
+      85.5
+    ],
+    "first_run_ci_width_pp": 10.5,
+    "n_needed_unpaired_2pp_80pct_power": 5141
+  },
+  "v3a": {
+    "arm": "v3a",
+    "n_items": 4000,
+    "pool_accuracy_percent": 84.3,
+    "pool_accuracy_95ci_percent": [
+      83.15,
+      85.425
+    ],
+    "sanity_gate_passed": true,
+    "prediction_share": {
+      "World": 0.202,
+      "Sports": 0.265,
+      "Business": 0.24825,
+      "Sci/Tech": 0.28475
+    },
+    "confusion_matrix_rows_true_cols_pred": [
+      [
+        729,
+        42,
+        114,
+        105
+      ],
+      [
+        4,
+        1007,
+        15,
+        4
+      ],
+      [
+        38,
+        5,
+        771,
+        165
+      ],
+      [
+        37,
+        6,
+        93,
+        865
+      ]
+    ],
+    "per_class_recall": {
+      "World": 0.7363636363636363,
+      "Sports": 0.9776699029126213,
+      "Business": 0.7875383043922369,
+      "Sci/Tech": 0.8641358641358642
+    },
+    "runs_min": 76.5,
+    "runs_max": 88.5,
+    "runs_range_pp": 12.0,
+    "runs_mean": 84.3,
+    "runs_sd_pp": 2.8626450779140025,
+    "binomial_sd_pp_200": 2.5724599122240956,
+    "n_sets": 20,
+    "n_pairs": 190,
+    "pairs_at_least_2pp": 120,
+    "empirical_pair_rate": 0.631578947368421,
+    "decision_statistic": "P(two independent 200-item sets differ by >=4 correct), Binomial(200,p)",
+    "pair_probability_point": 0.6300676825266767,
+    "pair_probability_95ci": [
+      0.6194261599692411,
+      0.6395669198158129
+    ],
+    "verdict": "PROVEN",
+    "textbook_independent_pair_probability": 0.6300676825266767,
+    "first_run_accuracy": 82.0,
+    "first_run_95ci": [
+      76.5,
+      87.0
+    ],
+    "first_run_ci_width_pp": 10.5,
+    "n_needed_unpaired_2pp_80pct_power": 5195
+  },
+  "v3b": {
+    "arm": "v3b",
+    "n_items": 1000,
+    "pool_accuracy_percent": 82.1,
+    "pool_accuracy_95ci_percent": [
+      79.7,
+      84.5
+    ],
+    "sanity_gate_passed": true,
+    "prediction_share": {
+      "World": 0.266,
+      "Sports": 0.247,
+      "Business": 0.373,
+      "Sci/Tech": 0.114
+    },
+    "confusion_matrix_rows_true_cols_pred": [
+      [
+        238,
+        8,
+        18,
+        6
+      ],
+      [
+        2,
+        237,
+        1,
+        0
+      ],
+      [
+        10,
+        0,
+        243,
+        5
+      ],
+      [
+        16,
+        2,
+        111,
+        103
+      ]
+    ],
+    "per_class_recall": {
+      "World": 0.8814814814814815,
+      "Sports": 0.9875,
+      "Business": 0.9418604651162791,
+      "Sci/Tech": 0.44396551724137934
+    },
+    "runs_min": 77.5,
+    "runs_max": 86.5,
+    "runs_range_pp": 9.0,
+    "runs_mean": 81.45,
+    "runs_sd_pp": 2.157605885673919,
+    "binomial_sd_pp_200": 2.7107102390333058,
+    "n_sets": 20,
+    "n_pairs": 190,
+    "pairs_at_least_2pp": 113,
+    "empirical_pair_rate": 0.5947368421052631,
+    "decision_statistic": "P(two 200-item subsets of the 1000 pool differ by >=4 correct), hypergeometric",
+    "pair_probability_point": 0.6097647197078095,
+    "pair_probability_95ci": [
+      0.5896518114055984,
+      0.6266793351177031
+    ],
+    "verdict": "PROVEN",
+    "textbook_independent_pair_probability": 0.6477195856174063,
+    "first_run_accuracy": 81.0,
+    "first_run_95ci": [
+      75.5,
+      86.0
+    ],
+    "first_run_ci_width_pp": 10.5,
+    "n_needed_unpaired_2pp_80pct_power": 5768
+  },
+  "paired_v2_vs_v3b": {
+    "acc_0p6b": 84.5,
+    "acc_1p7b": 82.1,
+    "diff_pp": -2.4,
+    "diff_95ci_pp": [
+      -5.2,
+      0.3
+    ],
+    "discordant_rate": 0.188,
+    "n_needed_paired_2pp_80pct_power": 3689,
+    "n_needed_unpaired_2pp_80pct_power": 5460
+  }
+}
