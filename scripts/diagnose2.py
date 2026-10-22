@@ -24,7 +24,7 @@ chat=lambda c,pre='': tok.apply_chat_template([{'role':'user','content':c}],toke
 LET='Classify this news article. Choose exactly one answer.\nA: World\nB: Sports\nC: Business\nD: Science/Technology\n\nArticle: {a}\n\nAnswer with just A, B, C, or D.'
 NAM='Classify this news article into one category: World, Sports, Business, or Science/Technology.\n\nArticle: {a}\n\nAnswer with just the category name.'
 variants={
- 'v1 chat letters':(lambda d:chat(LET.format(a=art(d))),L),
+ 'original chat letters':(lambda d:chat(LET.format(a=art(d))),L),
  'chat letters + prefill "Answer: "':(lambda d:chat(LET.format(a=art(d)),'Answer:'),LS),
  'chat names':(lambda d:chat(NAM.format(a=art(d))),NM),
  'plain-text letters':(lambda d:'Article: '+art(d)+'\n\nWhich topic is this article about?\nA. World\nB. Sports\nC. Business\nD. Science/Technology\nAnswer:',LS),

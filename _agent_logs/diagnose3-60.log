@@ -1,7 +1,0 @@
-Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights:   0%|          | 1/311 [00:00<02:30,  2.06it/s]Loading weights:  53%|█████▎    | 164/311 [00:00<00:00, 368.44it/s]Loading weights:  82%|████████▏ | 256/311 [00:00<00:00, 438.26it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 362.86it/s]
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-chat template tail: 'wer with just A, B, C, or D.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n'
-top-5 next tokens unbatched item0: [('A', 34.94), ('D', 30.98), ('B', 27.98), ('Answer', 26.06), ('C', 24.62)]
-unbatched bs=1: acc=0.167 preds={0: 60} (28s)
-mean letter logits [34.15 27.98 24.95 31.53]
-batched + position_ids: acc=0.167 preds={0: 60} (24s)

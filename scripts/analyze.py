@@ -126,10 +126,9 @@ The model selects the highest-logit A/B/C/D answer token with thinking disabled 
 ## Reproduce
 
 ```bash
-source /workspace/tools/setup.sh
-cd /workspace/work/tig/126-eval-noise-two-points
-/workspace/tools/mlenv/bin/python scripts/evaluate.py
-/workspace/tools/mlenv/bin/python scripts/analyze.py
+pip install -r requirements.txt
+python scripts/evaluate.py
+python scripts/analyze.py
 ```
 
 Evaluation appends predictions after each batch and skips saved pool IDs on resume. Analysis is deterministic and overwrites derived outputs. Raw public pool articles, per-item logits and predictions, subset membership, run scores, pair gaps, bootstrap draws, and summary are in results/.

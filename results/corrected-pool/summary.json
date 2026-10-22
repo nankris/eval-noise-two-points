@@ -1,5 +1,5 @@
 {
-  "arm": "v2",
+  "arm": "corrected-pool",
   "n_items": 1000,
   "pool_accuracy_percent": 84.5,
   "pool_accuracy_95ci_percent": [

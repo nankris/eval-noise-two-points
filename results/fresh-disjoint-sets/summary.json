@@ -1,5 +1,5 @@
 {
-  "arm": "v3a",
+  "arm": "fresh-disjoint-sets",
   "n_items": 4000,
   "pool_accuracy_percent": 84.3,
   "pool_accuracy_95ci_percent": [

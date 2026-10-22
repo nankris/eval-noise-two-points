@@ -1,5 +1,5 @@
 {
-  "arm": "v3b",
+  "arm": "qwen3-1.7b",
   "n_items": 1000,
   "pool_accuracy_percent": 82.1,
   "pool_accuracy_95ci_percent": [

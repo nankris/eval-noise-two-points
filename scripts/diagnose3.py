@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Diagnose 3 (Grok Bot, 21 Oct): is the all-'World' collapse caused by batching/left-padding, or by the prompt?
-Uses the same 60 AG News *train* dev items as diagnose2 (seed 1261). It runs the v1 prompt unbatched (bs=1, no padding)
+"""Diagnose 3 (21 Oct): is the all-'World' collapse caused by batching/left-padding, or by the prompt?
+Uses the same 60 AG News *train* dev items as diagnose2 (seed 1261). It runs the original prompt unbatched (bs=1, no padding)
 and batched with explicit position_ids derived from the attention mask."""
 import os,sys,time
 os.environ['OMP_NUM_THREADS']='3'

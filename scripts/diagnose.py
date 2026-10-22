@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Root-cause diagnosis on the first 40 pool items: compare variants of the v1 pipeline."""
+"""Root-cause diagnosis on the first 40 pool items: compare variants of the original pipeline."""
 import os, json, sys, time
 os.environ['OMP_NUM_THREADS']='3'
 import torch, numpy as np
@@ -31,8 +31,8 @@ def run(name, build, bs=1, pad='left'):
     print(f'{name}: acc={np.mean(np.array(res)==np.array(lab)):.3f} preds={dict(Counter(res))} ({time.time()-t:.0f}s)',flush=True)
 chat=lambda p,th: tok.apply_chat_template([{'role':'user','content':content(p)}],tokenize=False,add_generation_prompt=True,enable_thinking=th)
 print(repr(chat(pool[0],False)[-120:]))
-#run('v1 prompt, bs=1 (no batching)', lambda p:chat(p,False), bs=1)
-#run('v1 prompt, bs=4 left pad', lambda p:chat(p,False), bs=4)
+#run('original prompt, bs=1 (no batching)', lambda p:chat(p,False), bs=1)
+#run('original prompt, bs=4 left pad', lambda p:chat(p,False), bs=4)
 
 # --- top-token inspection and variants
 with torch.inference_mode():

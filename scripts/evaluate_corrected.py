@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""v2/v3 resumable evaluation with the fixed prompt (see README v2 re-registration).
-usage: evaluate_v2.py --arm v2|v3a|v3b [--threads 3]
-  v2 : Qwen3-0.6B (pinned revision, local ./model), 1000-item v1 pool
-  v3a: Qwen3-0.6B, 4000 fresh test items (seed 1260, excluding v1 pool)
-  v3b: Qwen3-1.7B, 1000-item v1 pool
+"""Resumable evaluation with the corrected prompt (see the corrected-prompt preregistration in README).
+usage: evaluate_corrected.py --arm corrected-pool|fresh-disjoint-sets|qwen3-1.7b [--threads 3]
+  corrected-pool     : Qwen3-0.6B (pinned revision, local ./model), the original 1000-item pool
+  fresh-disjoint-sets: Qwen3-0.6B, 4000 fresh test items (seed 1260, excluding the original pool)
+  qwen3-1.7b         : Qwen3-1.7B, the original 1000-item pool
 """
 import os, sys, json, time, argparse, hashlib
 ap=argparse.ArgumentParser(); ap.add_argument('--arm',required=True); ap.add_argument('--threads',type=int,default=3); ap.add_argument('--limit',type=int,default=0); ap.add_argument('--dtype',default='float32')
@@ -15,18 +15,18 @@ from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 torch.set_num_threads(A.threads)
 ROOT=Path(__file__).resolve().parents[1]; OUT=ROOT/'results'/A.arm; OUT.mkdir(parents=True,exist_ok=True)
-v1pool=json.loads((ROOT/'results/pool.json').read_text())
-if A.arm=='v3a':
+origpool=json.loads((ROOT/'results/pool.json').read_text())
+if A.arm=='fresh-disjoint-sets':
     pf=OUT/'pool.json'
     if pf.exists(): pool=json.loads(pf.read_text())
     else:
-        ds=load_dataset('fancyzhx/ag_news',split='test'); used={p['dataset_index'] for p in v1pool}
+        ds=load_dataset('fancyzhx/ag_news',split='test'); used={p['dataset_index'] for p in origpool}
         rest=np.array([i for i in range(len(ds)) if i not in used])
         idx=np.random.default_rng(1260).choice(rest,4000,replace=False).tolist()
         pool=[{'pool_index':i,'dataset_index':int(j),'text':ds[int(j)]['text'],'label':ds[int(j)]['label']} for i,j in enumerate(idx)]
         pf.write_text(json.dumps(pool,indent=1))
-else: pool=v1pool
-if A.arm=='v3b':
+else: pool=origpool
+if A.arm=='qwen3-1.7b':
     from huggingface_hub import snapshot_download
     mp=snapshot_download('Qwen/Qwen3-1.7B',allow_patterns=['*.json','*.safetensors','*.txt','*.jinja']); mid='Qwen/Qwen3-1.7B'
 else: mp=str(ROOT/'model'); mid='Qwen/Qwen3-0.6B@c1899de289a04d12100db370d81485cdf75e47ca'

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Analysis for v2 (fixed prompt, 0.6B, 1000 pool), v3a (0.6B, 4000 fresh items, 20 disjoint sets), v3b (1.7B, 1000 pool).
+"""Analysis for three arms: corrected-pool (corrected prompt, 0.6B, 1000 pool), fresh-disjoint-sets (0.6B, 4000 fresh items, 20 disjoint sets), qwen3-1.7b (1.7B, 1000 pool).
 No model calls. Writes results/<arm>/summary.json, runs.csv, pairs.csv, results/summary_all.json, figures/*.png"""
 import json, csv, sys
 from collections import Counter
@@ -27,9 +27,9 @@ def n_paired(discord,delta=.02,alpha=.05,power=.8):
     z=norm.ppf(1-alpha/2)+norm.ppf(power); return int(np.ceil(z**2*discord/delta**2))
 def verdict(ci): return 'PROVEN' if ci[0]>=.25 else ('DISPROVEN' if ci[1]<.25 else 'INCONCLUSIVE')
 out={}
-for arm in ['v2','v3a','v3b']:
+for arm in ['corrected-pool','fresh-disjoint-sets','qwen3-1.7b']:
     rows=load(arm)
-    exp_n=(200 if arm=='v3a' else 1000)
+    exp_n=(200 if arm=='fresh-disjoint-sets' else 1000)
     if rows is None or len(rows)<exp_n: out[arm]={'status':f'incomplete {0 if rows is None else len(rows)}/{exp_n}'}; continue
     c=np.array([r['correct'] for r in rows]); N=len(c); pred=np.array([r['prediction'] for r in rows]); lab=np.array([r['label'] for r in rows])
     cm=np.zeros((4,4),int)
@@ -37,9 +37,9 @@ for arm in ['v2','v3a','v3b']:
     share=np.bincount(pred,minlength=4)/N
     gate=bool(c.mean()>=.5 and share.max()<=.6)
     runs=[]
-    K=20 if arm!='v3a' else min(20,N//200)
+    K=20 if arm!='fresh-disjoint-sets' else min(20,N//200)
     for k in range(K):
-        if arm=='v3a': ids=np.arange(k*200,(k+1)*200)  # disjoint sets of a random (seed 1260) sample
+        if arm=='fresh-disjoint-sets': ids=np.arange(k*200,(k+1)*200)  # disjoint sets of a random (seed 1260) sample
         else: ids=np.random.default_rng(12600+k).choice(1000,200,replace=False)
         runs.append(dict(run=k+1,correct=int(c[ids].sum()),accuracy_percent=float(c[ids].sum()/2)))
     acc=np.array([r['accuracy_percent'] for r in runs]); cnt=np.array([r['correct'] for r in runs])
@@ -47,7 +47,7 @@ for arm in ['v2','v3a','v3b']:
     (R/arm).mkdir(exist_ok=True); wcsv(R/arm/'runs.csv',runs); wcsv(R/arm/'pairs.csv',pairs)
     rng=np.random.default_rng(1262026)
     ks=rng.binomial(N,c.mean(),size=2000)  # item bootstrap of binary items == binomial draw of the count
-    if arm=='v3a':
+    if arm=='fresh-disjoint-sets':
         cache={int(k):p_indep(k/N) for k in np.unique(ks)}; point=p_indep(c.mean()); stat='P(two independent 200-item sets differ by >=4 correct), Binomial(200,p)'
     else:
         cache={int(k):p_hyper(N,int(k)) for k in np.unique(ks)}; point=p_hyper(N,int(c.sum())); stat='P(two 200-item subsets of the 1000 pool differ by >=4 correct), hypergeometric'
@@ -65,18 +65,18 @@ for arm in ['v2','v3a','v3b']:
         first_run_accuracy=float(acc[0]),first_run_95ci=sci,first_run_ci_width_pp=float(sci[1]-sci[0]),
         n_needed_unpaired_2pp_80pct_power=n_unpaired(p))
     out[arm]=s; (R/arm/'summary.json').write_text(json.dumps(s,indent=2))
-# paired comparison 0.6B (v2) vs 1.7B (v3b) on identical items
-a,b=load('v2'),load('v3b')
+# paired comparison 0.6B (corrected-pool) vs 1.7B (qwen3-1.7b) on identical items
+a,b=load('corrected-pool'),load('qwen3-1.7b')
 if a and b and len(a)==len(b)==1000:
     ca=np.array([r['correct'] for r in a]); cb=np.array([r['correct'] for r in b]); disc=float(np.mean(ca!=cb))
     rng=np.random.default_rng(7); bs=[(cb[i]-ca[i]).mean()*100 for i in [rng.integers(0,1000,1000) for _ in range(10000)]]
-    out['paired_v2_vs_v3b']=dict(acc_0p6b=float(ca.mean()*100),acc_1p7b=float(cb.mean()*100),diff_pp=float((cb-ca).mean()*100),diff_95ci_pp=np.percentile(bs,[2.5,97.5]).tolist(),
+    out['paired_corrected_vs_qwen3_1p7b']=dict(acc_0p6b=float(ca.mean()*100),acc_1p7b=float(cb.mean()*100),diff_pp=float((cb-ca).mean()*100),diff_95ci_pp=np.percentile(bs,[2.5,97.5]).tolist(),
         discordant_rate=disc,n_needed_paired_2pp_80pct_power=n_paired(disc),n_needed_unpaired_2pp_80pct_power=n_unpaired((ca.mean()+cb.mean())/2))
 (R/'summary_all.json').write_text(json.dumps(out,indent=2)); print(json.dumps(out,indent=2))
 # figures
 plt.rcParams.update({'font.size':11})
-arms=[x for x in ['v2','v3a','v3b'] if 'verdict' in out.get(x,{})]
-lbl={'v2':'Qwen3-0.6B, overlapping subsets of 1,000','v3a':'Qwen3-0.6B, %s disjoint fresh sets (%s items)'%(out.get('v3a',{}).get('n_sets','?'),format(out.get('v3a',{}).get('n_items',0),',')),'v3b':'Qwen3-1.7B, overlapping subsets of 1,000'}
+arms=[x for x in ['corrected-pool','fresh-disjoint-sets','qwen3-1.7b'] if 'verdict' in out.get(x,{})]
+lbl={'corrected-pool':'Qwen3-0.6B, overlapping subsets of 1,000','fresh-disjoint-sets':'Qwen3-0.6B, %s disjoint fresh sets (%s items)'%(out.get('fresh-disjoint-sets',{}).get('n_sets','?'),format(out.get('fresh-disjoint-sets',{}).get('n_items',0),',')),'qwen3-1.7b':'Qwen3-1.7B, overlapping subsets of 1,000'}
 if arms:
     fig,ax=plt.subplots(1,len(arms),figsize=(5.2*len(arms),4.2),squeeze=False)
     for i,arm in enumerate(arms):
@@ -95,20 +95,20 @@ if arms:
     pts=[out[a]['pair_probability_point'] for a in arms]; lo=[out[a]['pair_probability_95ci'][0] for a in arms]; hi=[out[a]['pair_probability_95ci'][1] for a in arms]
     ax.errorbar(xs,pts,yerr=[np.array(pts)-lo,np.array(hi)-pts],fmt='o',capsize=6,color='#20639b',label='decision statistic, 95% CI')
     ax.scatter(xs,[out[a]['empirical_pair_rate'] for a in arms],marker='x',color='#e67e22',label='observed share of pairs',zorder=3)
-    ax.axhline(.25,color='#c0392b',ls='--',label='pre-registered 25% bar'); ax.set_xticks(xs,[lbl[a].replace(', ','\n') for a in arms],fontsize=8); ax.set_ylim(0,1)
+    ax.axhline(.25,color='#c0392b',ls='--',label='preregistered 25% bar'); ax.set_xticks(xs,[lbl[a].replace(', ','\n') for a in arms],fontsize=8); ax.set_ylim(0,1)
     ax.set_ylabel('P(two evals differ by ≥2 pp)'); ax.legend(fontsize=8); ax.set_title('How often does an unchanged model "gain" 2 points?'); fig.tight_layout(); fig.savefig(F/'03_pair_probability.png',dpi=170); plt.close(fig)
     fig,ax=plt.subplots(1,len(arms),figsize=(4.6*len(arms),4),squeeze=False)
     for i,arm in enumerate(arms):
         cm=np.array(out[arm]['confusion_matrix_rows_true_cols_pred']); ax[0,i].imshow(cm,cmap='Blues')
         for r in range(4):
             for q in range(4): ax[0,i].text(q,r,cm[r,q],ha='center',va='center',color='white' if cm[r,q]>cm.max()/2 else 'black')
-        ax[0,i].set(xticks=range(4),yticks=range(4),xticklabels=NAMES,yticklabels=NAMES,xlabel='predicted',ylabel='true',title=f"{arm}: acc {out[arm]['pool_accuracy_percent']:.1f}%")
+        ax[0,i].set(xticks=range(4),yticks=range(4),xticklabels=NAMES,yticklabels=NAMES,xlabel='predicted',ylabel='true',title=f"{lbl[arm].replace(', ','\n')}\nacc {out[arm]['pool_accuracy_percent']:.1f}%")
     fig.tight_layout(); fig.savefig(F/'04_confusion.png',dpi=170); plt.close(fig)
-# v1 broken vs v2 fixed prediction distribution
-v1=[json.loads(l) for l in (R/'predictions.jsonl').read_text().splitlines()]
-if 'v2' in arms:
-    v2=load('v2'); fig,ax=plt.subplots(figsize=(7,3.8)); w=.38; x=np.arange(4)
-    c1=np.bincount([r['prediction'] for r in v1],minlength=4)/len(v1); c2=np.bincount([r['prediction'] for r in v2],minlength=4)/len(v2); tl=np.bincount([r['label'] for r in v2],minlength=4)/len(v2)
-    ax.bar(x-w/2,c1,w,label=f'v1 prompt (n={len(v1)}), acc {np.mean([r["correct"] for r in v1])*100:.1f}%',color='#c0392b'); ax.bar(x+w/2,c2,w,label=f'v2 prompt (n=1000), acc {out["v2"]["pool_accuracy_percent"]:.1f}%',color='#20639b')
-    ax.scatter(x,tl,marker='_',s=900,color='black',label='true label share',zorder=3); ax.set_xticks(x,NAMES); ax.set_ylabel('share of predictions'); ax.legend(fontsize=8); ax.set_title('The bug: v1 answered "World" every time')
-    fig.tight_layout(); fig.savefig(F/'00_v1_vs_v2_predictions.png',dpi=170); plt.close(fig)
+# original (broken) vs corrected prediction distribution
+orig=[json.loads(l) for l in (R/'predictions.jsonl').read_text().splitlines()]
+if 'corrected-pool' in arms:
+    corr=load('corrected-pool'); fig,ax=plt.subplots(figsize=(7,3.8)); w=.38; x=np.arange(4)
+    c1=np.bincount([r['prediction'] for r in orig],minlength=4)/len(orig); c2=np.bincount([r['prediction'] for r in corr],minlength=4)/len(corr); tl=np.bincount([r['label'] for r in corr],minlength=4)/len(corr)
+    ax.bar(x-w/2,c1,w,label=f'original prompt (n={len(orig)}), acc {np.mean([r["correct"] for r in orig])*100:.1f}%',color='#c0392b'); ax.bar(x+w/2,c2,w,label=f'corrected prompt (n=1000), acc {out["corrected-pool"]["pool_accuracy_percent"]:.1f}%',color='#20639b')
+    ax.scatter(x,tl,marker='_',s=900,color='black',label='true label share',zorder=3); ax.set_xticks(x,NAMES); ax.set_ylabel('share of predictions'); ax.legend(fontsize=8); ax.set_title('The bug: the original prompt answered "World" every time')
+    fig.tight_layout(); fig.savefig(F/'00_original_vs_corrected_predictions.png',dpi=170); plt.close(fig)
